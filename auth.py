@@ -16,7 +16,7 @@ CORS(app, supports_credentials=True)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max size
 
 # Configure MongoDB
-app.config["MONGO_URI"] = "mongodb://localhost:27017/jobmatchdb"
+app.config["MONGO_URI"] = "mongodb+srv://jobseek:nA5X5O0D5RUYMjpM@cluster0.98tbj.mongodb.net/signup?retryWrites=true&w=majority&appName=Cluster0"
 app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY", "your-secret-key-change-in-production")
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
 app.config["JWT_TOKEN_LOCATION"] = ["headers"]
