@@ -10,7 +10,11 @@ from bson.objectid import ObjectId
 import json
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "https://jobai-ycon.vercel.app"}})
+CORS(app, 
+     resources={r"/api/*": {"origins": "*"}}, 
+     supports_credentials=True,
+     allow_headers=["Content-Type", "Authorization", "Access-Control-Allow-Origin"],
+     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"])
 
 # Configure maximum request size for large profile images
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max size
@@ -26,6 +30,15 @@ app.config["JWT_HEADER_TYPE"] = "Bearer"
 mongo = PyMongo(app)
 jwt = JWTManager(app)
 
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type,Authorization'
+    response.headers['Access-Control-Allow-Methods'] = 'GET,PUT,POST,DELETE,OPTIONS'
+    return response
+
+# Fix for complex identity claims
+@jwt.user_identity_loader
+def user_identity_lookup(user):
 # Fix for complex identity claims
 @jwt.user_identity_loader
 def user_identity_lookup(user):
