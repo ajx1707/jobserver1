@@ -10,7 +10,7 @@ from bson.objectid import ObjectId
 import json
 
 app = Flask(__name__)
-CORS(app, supports_credentials=True)
+CORS(app, resources={r"/api/*": {"origins": "https://jobai-ycon.vercel.app"}})
 
 # Configure maximum request size for large profile images
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max size
